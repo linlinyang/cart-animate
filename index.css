@@ -1,0 +1,40 @@
+body {
+  z-index: 1; }
+
+.addToCart, .box {
+  background: #0f79b9;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 36px;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  right: 0;
+  bottom: 0;
+  font-weight: bold;
+  line-height: 30px;
+  cursor: pointer;
+  z-index: 10; }
+  .addToCart span, .box span {
+    color: #fff;
+    font-size: 30px; }
+
+.shopCart {
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 5px;
+  background: #35b317;
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  right: 100px;
+  bottom: 100px; }
+
+.box {
+  z-index: 9;
+  background: #e0c01b; }
+
+/*# sourceMappingURL=index.css.map */
