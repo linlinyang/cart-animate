@@ -38,10 +38,17 @@
 		window.addEventListener('DOMContentLoaded',ready,false);
 		window.addEventListener('unload',logout,false);
 
+		/*
+		* logout events and release variables
+		*/
 		function logout(){
 			window.removeEventListener('DOMContentLoaded',ready,false);
 			document.querySelector('.addToCart').removeEventListener('click',addToCart,false);
 		}
+
+		/*
+		* dom ready
+		*/
 		function ready(){
 
 			document.querySelector('.addToCart').addEventListener('click',addToCart,false);
@@ -49,19 +56,22 @@
 
 		}
 
+		/*
+		* 点击，创建小球并形成抛物线轨迹
+		*/
 		function addToCart(e){
-			var outer = createBall(),
-				inner = outer.firstElementChild,
-				startBtn = e.target,
-				shopCart = document.querySelector('.shopCart');
+			var outer = createBall(),//outer框
+				inner = outer.firstElementChild,//内部框
+				startBtn = e.target,//起始位置
+				shopCart = document.querySelector('.shopCart');//结束位置
 			startBtn = startBtn.classList.contains('addToCart') ? startBtn : startBtn.parentNode;
 			var startPoint = startBtn.getBoundingClientRect(),
 				endPoint = shopCart.getBoundingClientRect(),
-				instanceX = endPoint.left - startPoint.left,
-				instanceY = endPoint.top - startPoint.top;
+				instanceX = endPoint.left - startPoint.left,//水平方向将要移动的距离
+				instanceY = endPoint.top - startPoint.top;//垂直方向将要移动的距离
 
-			outer.style.transform = 'translate3d('+instanceX+'px,0,0)';
-			inner.style.transform = 'translate3d(0,'+instanceY+'px,0)';
+			outer.style.transform = 'translate3d('+instanceX+'px,0,0)';//水平方向匀速移动，参考样式设置
+			inner.style.transform = 'translate3d(0,'+instanceY+'px,0)';//垂直方向变速运动，参考样式设置
 			inner.style.opacity = 0;
 
 			outer = inner = startBtn = shopCart = null;
@@ -80,6 +90,9 @@
 			return outer;
 		}
 
+		/*
+		* 动画结束删除小球
+		*/
 		function animateEnd(e){
 			var target = e.target;
 
