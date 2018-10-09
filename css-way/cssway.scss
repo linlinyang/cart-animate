@@ -1,0 +1,89 @@
+@mixin pos(
+	$top: 0,
+	$left: 0,
+	$position: absolute,
+	$bottom: null,
+	$right: null
+){
+	@if ($top){
+		top: $top;
+	}
+	@if ($left){
+		left: $left;
+	}
+	@if ($position){
+		position: $position;
+	}
+	@if ($right){
+		right: $right;
+	}
+	@if ($bottom){
+		bottom: $bottom;
+	}
+}
+@mixin size(
+	$width,
+	$height
+){
+	@if ($width){
+		width: $width;
+	}
+	@if ($height){
+		height: $height
+	}
+}
+@mixin fcw(
+	$size: 16px,
+	$color: #333,
+	$weight: normal
+){
+	font-size: $size;
+	color: $color;
+	font-weight: $weight;
+}
+
+.addToCart{
+	@include size(36px,36px);
+	border-radius: 50%;
+	@include pos(100px,100px);
+	background: #0f79b9;
+	@include fcw(30px,#fff,bolder);
+	line-height: 32px;
+	text-align: center;
+	cursor: pointer;
+	z-index: 10;
+
+	span{
+		-webkit-user-select: none;
+		   -moz-user-select: none;
+		    -ms-user-select: none;
+		        user-select: none;
+	}
+}
+
+.outer{
+	z-index: 9;
+	@include pos(100px,100px);
+	transition: -webkit-transform 1s linear;
+	transition: transform 1s linear;
+	transition: transform 1s linear, -webkit-transform 1s linear;
+
+	.inner{
+		border-radius: 50%;
+		@include size(36px,36px);
+		@include pos();
+		background: #e0c01b;
+		opacity: 1;
+		transition: all 1s cubic-bezier(.41,-0.31,.95,.82);
+	}
+}
+
+.shopCart{
+	@include size(100px,40px);
+	line-height: 40px;
+	border-radius: 5px;
+	background: #35b317;
+	color: #fff;
+	text-align: center;
+	@include pos(null,null,absolute,100px,100px);
+}

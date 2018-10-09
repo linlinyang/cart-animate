@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Cart Animate</title>
+	<meta name="viewport" content="width=device-width,maximum-scale=1,minimum-scale=1,initial-scale=1,user-scalable=no">
+	<style type="text/css">
+		body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; } 
+	    body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53; } 
+	    h1, h2, h3, h4, h5, h6{ font-size:100%; } 
+	    address, cite, dfn, em, var { font-style:normal; } 
+	    code, kbd, pre, samp { font-family:couriernew, courier, monospace; } 
+	    small{ font-size:12px; } 
+	    ul, ol { list-style:none; } 
+	    a { text-decoration:none; } 
+	    a:hover { text-decoration:underline; } 
+	    sup { vertical-align:text-top; } 
+	    sub{ vertical-align:text-bottom; } 
+	    legend { color:#000; } 
+	    fieldset, img { border:0; } 
+	    button, input, select, textarea { font-size:100%; } 
+	    table { border-collapse:collapse; border-spacing:0; }
+	</style>
+	<link rel="stylesheet" type="text/css" href="cssway.css">
+</head>
+<body>
+
+	<div class="addToCart">
+		<span>+</span>
+	</div>
+
+	<div class="shopCart">
+		<span>Cart</span>
+	</div>
+
+	<script type="text/javascript">
+		
+		window.addEventListener('DOMContentLoaded',ready,false);
+		window.addEventListener('unload',logout,false);
+
+		function logout(){
+			window.removeEventListener('DOMContentLoaded',ready,false);
+			document.querySelector('.addToCart').removeEventListener('click',addToCart,false);
+		}
+		function ready(){
+
+			document.querySelector('.addToCart').addEventListener('click',addToCart,false);
+			window.addEventListener('transitionend',animateEnd,false)
+
+		}
+
+		function addToCart(e){
+			var outer = createBall(),
+				inner = outer.firstElementChild,
+				startBtn = e.target,
+				shopCart = document.querySelector('.shopCart');
+			startBtn = startBtn.classList.contains('addToCart') ? startBtn : startBtn.parentNode;
+			var startPoint = startBtn.getBoundingClientRect(),
+				endPoint = shopCart.getBoundingClientRect(),
+				instanceX = endPoint.left - startPoint.left,
+				instanceY = endPoint.top - startPoint.top;
+
+			outer.style.transform = 'translate3d('+instanceX+'px,0,0)';
+			inner.style.transform = 'translate3d(0,'+instanceY+'px,0)';
+			inner.style.opacity = 0;
+
+			outer = inner = startBtn = shopCart = null;
+
+		}
+
+		function createBall(){
+			var inner = document.createElement('div'),
+				outer = document.createElement('div');
+			inner.classList.add('inner');
+			outer.classList.add('outer');
+			outer.appendChild(inner);
+
+			document.body.appendChild(outer);
+
+			return outer;
+		}
+
+		function animateEnd(e){
+			var target = e.target;
+
+			if(target.classList.contains('outer')){
+				removeNode(target);
+			}
+
+			if(target.classList.contains('inner')){
+				removeNode(target.parentNode);
+			}
+		}
+
+		function removeNode(ele){
+			ele.parentNode && ele.parentNode.removeChild(ele);
+
+			ele = null;
+		}
+
+	</script>
+	
+</body>
+</html>
